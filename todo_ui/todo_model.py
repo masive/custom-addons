@@ -44,6 +44,7 @@ class TodoTask(models.Model):
                                 store=True,
                                 search='_search_stage_fold',
                                 inverse='_write_stage_fold')
+    stage_state = fields.Selection(related='stage_id.state', string='Stage State')
 
     @api.one
     @api.depends('stage_id.fold')
