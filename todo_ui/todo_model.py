@@ -33,4 +33,4 @@ class Stage(models.Model):
 class TodoTask(models.Model):
     _inherit = 'todo.task'
     stage_id = fields.Many2one('todo.task.stage', 'Stage')
-    tag_id = fields.Many2many('todo.task.tag', string='Tags')
+    tag_ids = fields.Many2many('todo.task.tag', string='Tags')
