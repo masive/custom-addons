@@ -5,7 +5,12 @@ from openerp import models, fields, api
 
 class Tag(models.Model):
     _name = 'todo.task.tag'
-    name = fields.Char('Name', size=40, translate=True)
+    _parent_store = True
+    # _parent_name = 'parent_id'
+    name = fields.Char('Name')
+    parent_id = fields.Many2one('todo.task.tag', 'Parent Tag', ondelete='restrict')
+    parent_left = fields.Integer('Parent Left', index=True)
+    parent_right = fields.Integer('Parent Right', index=True)
 
 
 class Stage(models.Model):
@@ -29,3 +34,8 @@ class Stage(models.Model):
     fold = fields.Boolean('Folded?')
     image = fields.Binary('Image')
 
+
+class TodoTask(models.Model):
+    _inherit = 'todo.task'
+    stage_id = fields.Many2one('todo.task.stage', 'Stage')
+    tag_ids = fields.Many2many('todo.task.tag', string='Tags')
