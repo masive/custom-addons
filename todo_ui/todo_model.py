@@ -39,3 +39,31 @@ class TodoTask(models.Model):
     _inherit = 'todo.task'
     stage_id = fields.Many2one('todo.task.stage', 'Stage')
     tag_ids = fields.Many2many('todo.task.tag', string='Tags')
+    stage_fold = fields.Boolean(string='Stage Folded?',
+                                compute='_compute_stage_fold',
+                                store=True,
+                                search='_search_stage_fold',
+                                inverse='_write_stage_fold')
+    stage_state = fields.Selection(related='stage_id.state', string='Stage State')
+
+    @api.one
+    @api.depends('stage_id.fold')
+    def _compute_stage_fold(self):
+        self.stage_fold = self.stage_id.fold
+
+    def _search_stage_fold(self, operator, value):
+        return [('stage_id.fold', operator, value)]
+
+    def _write_stage_fold(self):
+        self.stage_id.fold = self.stage_fold
+
+    _sql_constraints = [
+        ('todo_task_name_uniq',
+         'UNIQUE (name, user_id, active)',
+         'Task title must be unique!')]
+
+    @api.one
+    @api.constrains('name')
+    def _check_name_size(self):
+        if len(self.name) < 5:
+            raise ValueError('Must have 5 chars!')
