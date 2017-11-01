@@ -56,3 +56,14 @@ class TodoTask(models.Model):
 
     def _write_stage_fold(self):
         self.stage_id.fold = self.stage_fold
+
+    _sql_constraints = [
+        ('todo_task_name_uniq',
+         'UNIQUE (name, user_id, active)',
+         'Task title must be unique!')]
+
+    @api.one
+    @api.constrains('name')
+    def _check_name_size(self):
+        if len(self.name) < 5:
+            raise ValueError('Must have 5 chars!')
