@@ -49,6 +49,9 @@ class TodoTask(models.Model):
                                 search='_search_stage_fold',
                                 inverse='_write_stage_fold')
     stage_state = fields.Selection(related='stage_id.state', string='Stage State')
+    refers_to = fields.Reference(
+        [('res.user', 'User'), ('res.partner', 'Partner')],
+        'Refers to')
 
     @api.one
     @api.depends('stage_id.fold')
@@ -71,3 +74,9 @@ class TodoTask(models.Model):
     def _check_name_size(self):
         if len(self.name) < 5:
             raise ValueError('Must have 5 chars!')
+
+    @api.one
+    def compute_user_todo_count(self):
+        self.user_todo_count = self.search_count([('user_id', '=', self.user_id.ids)])
+
+    user_todo_count = fields.Integer('User To-Do Count', compute='compute_user_todo_count')
