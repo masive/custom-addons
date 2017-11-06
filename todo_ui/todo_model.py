@@ -16,6 +16,7 @@ class Tag(models.Model):
 class Stage(models.Model):
     _name = 'todo.task.stage'
     _order = 'sequence, name'
+
     #String fields:
     name = fields.Char('Name', size=40)
     desc = fields.Text('Description')
@@ -24,12 +25,15 @@ class Stage(models.Model):
          ('open', 'Started'),
          ('done', 'Closed')], 'State')
     docs = fields.Html('Documentation')
+
     # Numeric fields:
     sequence = fields.Integer('Sequence')
     perc_complete = fields.Float('% Complete', (3, 2))
+
     # Date fields:
     date_effective = fields.Date('Effective Date')
     date_changed = fields.Datetime('Last Change')
+
     # Other fields:
     fold = fields.Boolean('Folded?')
     image = fields.Binary('Image')

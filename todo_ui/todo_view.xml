@@ -14,5 +14,11 @@
         <act_window id="action_todo_task_stage" name="To-Do Task Stages"
             res_model="todo.task.stage" src_model="todo.task"
             multi="False"/>
+
+        <menuitem id="menu_todo_task_main" name="To-Do" parent="mail.mail_my_stuff"/>
+        <menuitem id="todo_app.nemu_todo_task" name="To-Do Tasks" parent="menu_todo_task_main"
+                  sequence="10" action="todo_app.action_todo_task"/>
+        <menuitem id="menu_todo_stage" name="To-Do Stage" parent="menu_todo_task_main"
+                  sequence="20" action="action_todo_stage"/>
     </data>
 </openerp>
