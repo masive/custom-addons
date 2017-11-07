@@ -52,6 +52,7 @@ class TodoTask(models.Model):
     refers_to = fields.Reference(
         [('res.user', 'User'), ('res.partner', 'Partner')],
         'Refers to')
+    effort_estimate = fields.Integer('Effort Estimate')
 
     @api.one
     @api.depends('stage_id.fold')
