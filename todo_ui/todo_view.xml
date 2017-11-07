@@ -110,6 +110,15 @@
             </field>
         </record>
 
+        <record id="view_gantt_todo_task" model="ir.ui.view">
+          <field name="name">view_gantt_todo_task</field>
+            <field name="model">todo.task</field>
+            <field name="arch" type="xml">
+            <gantt date_start="date_deadline"
+                   default_group_by="user_id" />
+          </field>
+        </record>
+
         <act_window id="action_todo_stage" name="To-Do Stage"
             res_model="todo.task.stage" view_mode="tree,form"/>
 
