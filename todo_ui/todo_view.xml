@@ -97,6 +97,19 @@
             </field>
         </record>
 
+        <record id="view_calendar_todo_task" model="ir.ui.view">
+            <field name="name">view_calendar_todo_task</field>
+            <field name="model">todo.task</field>
+            <field name="arch" type="xml">
+                <calendar date_start="date_deadline" color="user_id"
+                          display="[name], Stage=[stage_id]">
+                    <!-- Fields used for the text of display attribute -->
+                    <field name="name" />
+                    <field name="stage_id" />
+                </calendar>
+            </field>
+        </record>
+
         <act_window id="action_todo_stage" name="To-Do Stage"
             res_model="todo.task.stage" view_mode="tree,form"/>
 
