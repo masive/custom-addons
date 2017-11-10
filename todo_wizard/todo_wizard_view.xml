@@ -6,7 +6,7 @@
             <field name="arch" type="xml">
 
                 <form>
-                    <div class="oe_rigth">
+                    <div class="oe_right">
                         <button type="object" name="do_count_tasks" string="Count"/>
                         <button type="object" name="do_populate_tasks" string="Get All"/>
                     </div>
