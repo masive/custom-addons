@@ -31,3 +31,17 @@ class TodoWizard(models.TransientModel):
         Task = self.env['todo.task']
         count = Task.search_count([])
         raise exceptions.Warning('There are %d active tasks.' % count)
+
+    @api.multi
+    def do_reopen_form(self):
+        self.ensure_one()
+        return {'type': 'ir.actions.act_window', 'res_model': self._name,
+                        'res_id': self.id, 'view_mode': 'form', 'target': 'new'}
+
+    @api.multi
+    def do_populate_tasks(self):
+        self.ensure_one()
+        Task = self.env['todo.task']
+        all_tasks = Task.search([])
+        self.task_ids = all_tasks
+        return self.do_reopen_form()
