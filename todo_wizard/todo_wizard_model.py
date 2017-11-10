@@ -26,7 +26,8 @@ class TodoWizard(models.TransientModel):
 
         return True
 
-    @api.onchange('new_user_id', 'new_deadline')
-    def debudding(self):
-        print "NEW USER ID: ", self.new_user_id.id
-        print "NEW DEADLINE: ", self.new_deadline
+    @api.multi
+    def do_count_tasks(self):
+        Task = self.env['todo.task']
+        count = Task.search_count([])
+        raise exceptions.Warning('There are %d active tasks.' % count)
