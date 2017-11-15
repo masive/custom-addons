@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <!--Add Kanban view mode to the menu Action:-->
+        <act_window id="todo_app.action_todo_task" name="To-Do Tasks" res_model="todo.task"
+                    view_mode="kanban,tree,form,calendar,gantt,graph"
+                    context="{'search_default_filter_my_task': True}"/>
+        <!--Add Kanban view-->
+        <record id="To-do task Kanban" model="ir.ui.view">
+            <field name="name">To-do task Kanban</field>
+            <field name="model">todo.task</field>
+            <field name="arch" type="xml">
+                <!--Empty for ow, but the Kanban will go here!-->
+            </field>
+        </record>
+    </data>
+</openerp>
